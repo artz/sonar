@@ -35,25 +35,26 @@
 			}
 		}
 
-		var delay = options.delay || 0;
-		if (!bound) {
-			// Attach throttled poll function to window scroll event.
-			if (window.addEventListener) {
-				window.addEventListener('scroll', throttle(poll, delay), false);
-				window.addEventListener('resize', throttle(poll, delay), false);
-			} else if (window.attachEvent) {
-				window.attachEvent('onscroll', throttle(poll, delay));
-				window.attachEvent('onresize', throttle(poll, delay));
-			}
-			bound = true;
-		}
-
 		// If scrollin or scrollout is supplied,
 		// push to our poll queue and poll them.
 		if (options.scrollin || options.scrollout) {
+
 			options.elem = elem;
 			queue.push(options);
 			poll();
+
+			var delay = options.delay || 0;
+			if (!bound) {
+				// Attach throttled poll function to window scroll event.
+				if (window.addEventListener) {
+					window.addEventListener('scroll', throttle(poll, delay), false);
+					window.addEventListener('resize', throttle(poll, delay), false);
+				} else if (window.attachEvent) {
+					window.attachEvent('onscroll', throttle(poll, delay));
+					window.attachEvent('onresize', throttle(poll, delay));
+				}
+				bound = true;
+			}
 		}
 
 		// Return detection status.
@@ -170,6 +171,8 @@
 			}
 		}
 	}
+
+	sonar.poll = poll;
 
 	// Expose!
 	window.Sonar = sonar;
