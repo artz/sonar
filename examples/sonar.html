@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+<head>
+<title>Sonar Demo</title>
+<style>
+body {
+	font:100% calibri,arial;
+	width:600px;
+}
+.box {
+	background-color:#CF6;
+	font-size:50px;
+	font-weight:bold;
+	padding:20px;
+	text-align:center;
+}
+.detected {
+	background-color:#9F6;
+}
+.offscreen {
+	background-color:#C36;
+	color:#fff;
+}
+#detect {
+	background-color: #cF6;
+	padding: 25px 50px;
+	position: fixed;
+	top:25px;
+	right:25px;
+}
+#detect-button {
+	font-size: 22px;
+	cursor:pointer;
+	border:2px outset #690;
+	background-color:#9C3;
+	padding:10px 20px;
+}
+#detect-button:active {
+	margin: 2px -2px -2px 2px;
+	border:2px inset #690;
+}
+#reset-button {
+	font-size: 22px;
+	cursor:pointer;
+	border:2px outset #C03;
+	background-color:#C9C;
+	padding:10px 20px;
+	display:none;
+}
+#reset-button:active {
+	margin: 2px -2px -2px 2px;
+	border:2px inset #C03;
+}
+label {
+	cursor:pointer;
+}
+#sonar-updates {
+	background-color:#FFF;
+	padding:25px;
+	margin: 0 -25px;
+}
+#sonar-updates-message {
+	margin:0;
+}
+#scrolling-box {
+	height: 400px;
+	overflow:auto;
+	border: 3px solid #000;
+}
+</style>
+</head>
+<body>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<div id="box1" class="box">BOX 1</div>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<div id="box2" class="box">BOX 2</div>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<div id="box3" class="box">BOX 3</div>
+<!--<h2>Scrolling Box</h2>
+<div id="scrolling-box">
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<div id="box4" class="box">BOX 4</div>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+<p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
+</div>
+-->
+<div id="detect">
+<p><input id="detect-button" type="button" value="Detect Box 2" /></p>
+<p><input id="reset-button" type="button" value="Reset Box 2" /></p>
+<p><label><input type="checkbox" id="detect-full" /> Must be fully visible</label></p>
+<div id="sonar-updates"><b>Sonar Updates</b>
+<p id="sonar-updates-message"></p>
+</div>
+</div>
+<!--<script type="text/javascript" src="http://o.aolcdn.com/os/aol/jquery-1.4.2.min.js"></script>-->
+<script src="jquery-1.10.1.min.js"></script>
+<script src="../sonar.js"></script>
+<script>
+(function () {
+var sonarUpdates = document.getElementById('sonar-updates-message');
+
+// Add 'scrollin' and 'scrollout' callbacks to Box 1
+Sonar(document.getElementById('box1'), {
+	scrollin: function() {
+		sonarUpdates.innerHTML = 'BOX 1 is on screen.';
+	},
+	scrollout: function () {
+		sonarUpdates.innerHTML = 'BOX 1 is off screen.';
+	}
+});
+
+// Add a distance callback to Box 2
+Sonar(document.getElementById('box2'), function () {
+	sonarUpdates.innerHTML = 'BOX 2 is 100 pixels off screen.';
+}, { distance: 100 });
+
+// Detect when Box 3 is 30% on screen.
+// Remove Sonar when detected.
+Sonar(document.getElementById('box3'), function() {
+		sonarUpdates.innerHTML = 'BOX 3 is 30% on screen.';
+		this.scrollin = false;
+	}, { visibility: .3 });
+
+// Detect when Box 3 is fully visible on screen.
+// Remove Sonar when detected.
+Sonar(document.getElementById('box3'), function() {
+		sonarUpdates.innerHTML = 'BOX 3 is fully on screen.';
+		this.scrollin = false;
+	}, { visibility: 1 });
+
+var $sonarUpdates = $('#sonar-updates-message');
+
+$("#detect-button").click(function(){
+
+	var box2 = document.getElementById('box2'),
+		$box2 = $(box2),
+		full = $('#detect-full')[0].checked,
+		fully = full ? ' fully ' : '',
+		visibility = full ? 1 : 0;
+
+		if (Sonar(box2, { 'visibility': visibility })) {
+		$box2.addClass("detected");
+		$(this).hide();
+		$("#reset-button").show();
+		$sonarUpdates.html("BOX 2 is " + fully + "on screen.");
+	} else {
+		$sonarUpdates.html("BOX 2 is not " + fully + "on screen.");
+	}
+
+});
+
+$("#reset-button").click(function(){
+	$("#box2").removeClass("detected");
+	$(this).hide();
+	$("#detect-button").show();
+	$sonarUpdates.html("BOX 2 detection button reset.");
+});
+
+}());
+
+/*
+var $box4 = $("#box4");
+$box4.bind("scrollin", { parent: $box4[0] }, function(evt){
+ 	$sonarUpdates.html("BOX 4 is on screen.");
+	$(this).addClass("detected");
+}).bind("scrollout", { parent: $box4[0] }, function(evt){
+ 	$sonarUpdates.html("BOX 4 is off screen.");
+	$(this).removeClass("detected");
+});
+*/
+</script>
+</body>
+</html>
