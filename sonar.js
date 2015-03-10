@@ -20,8 +20,15 @@
 		};
 	}
 
+	function getStyle(elem, prop) {
+		if (window.getComputedStyle) {
+			return window.getComputedStyle(elem).getPropertyValue(prop);
+		} else if (elem.currentStyle) {
+			return elem.currentStyle[prop];
+		}
+	}
+
 	var queue = [];
-	var bound;
 	function sonar(elem, callback, options) {
 
 		// Normalize arguments.
@@ -34,6 +41,21 @@
 				options = { scrollin: callback };
 			}
 		}
+		var parent = options.parent;
+		if (!parent) {
+			// Determine if element is inside an element with overflow set.
+			var parentNode = elem;
+			var overflow;
+			while ((parentNode = parentNode.parentNode) && parentNode.nodeType === 1) {
+				overflow = getStyle(parentNode, 'overflow');
+				if (overflow === 'auto' || overflow === 'scroll') {
+					parent = parentNode;
+					break;
+				}
+			}
+			parent = parent || document.documentElement;
+		}
+		options.parent = parent;
 
 		// If scrollin or scrollout is supplied,
 		// push to our poll queue and poll them.
@@ -44,27 +66,27 @@
 			poll();
 
 			var delay = options.delay || 0;
-			if (!bound) {
+			if (!parent.__Sonar) {
 				// Attach throttled poll function to window scroll event.
-				if (window.addEventListener) {
-					window.addEventListener('scroll', throttle(poll, delay), false);
-					window.addEventListener('resize', throttle(poll, delay), false);
+				if (parent.addEventListener) {
+					parent.addEventListener('scroll', throttle(poll, delay), false);
+					parent.addEventListener('resize', throttle(poll, delay), false);
 				} else if (window.attachEvent) {
-					window.attachEvent('onscroll', throttle(poll, delay));
-					window.attachEvent('onresize', throttle(poll, delay));
+					parent.attachEvent('onscroll', throttle(poll, delay));
+					parent.attachEvent('onresize', throttle(poll, delay));
 				}
-				bound = true;
+				parent.__Sonar = true;
 			}
 		}
 
 		// Return detection status.
-		return detect(elem, options.distance, options.visibility);
+		return detect(elem, options.distance, options.visibility, options.parent);
 	}
 
 	// Determines if an element is visible in the
 	// browser viewport within an optional distance.
 	var body;
-	function detect(elem, distance, visibility) {
+	function detect(elem, distance, visibility, parent) {
 
 		// Cache the body elem.
 		if (!body) {
@@ -79,27 +101,24 @@
 			distance =  0;
 		}
 
-		var parentElem = elem, // Clone the elem for use in our loop.
-			elemTop = 0, // The resets the calculated elem top to 0.
+		var parentElem = elem; // Clone the elem for use in our loop.
+		var elemTop = 0; // The resets the calculated elem top to 0.
 
-			// Used to recalculate elem.sonarElemTop if body height changes.
-			bodyHeight = body.offsetHeight,
+		// Used to recalculate elem.sonarElemTop if body height changes.
+		var bodyHeight = body.offsetHeight;
 
-			// NCZ: I don't think you need innerHeight, I believe all major
-			// browsers support clientHeight.
-			screenHeight = window.innerHeight ||
-				document.documentElement.clientHeight ||
-				body.clientHeight || 0, // Height of the screen.
+		// NCZ: I don't think you need innerHeight, I believe all major
+		// browsers support clientHeight.
+		var screenHeight = parent.clientHeight || 0; // Height of the screen.
 
-			// NCZ: I don't think you need pageYOffset, I believe all major
-			// browsers support scrollTop.
-			scrollTop = document.documentElement.scrollTop ||
-				window.pageYOffset ||
-				body.scrollTop || 0, // How far the user scrolled down.
-				elemHeight = elem.offsetHeight || 0; // Height of the element.
+		// NCZ: I don't think you need pageYOffset, I believe all major
+		// browsers support scrollTop.
+		var scrollTop = parent.scrollTop || 0; // How far the user scrolled down.
 
-			// If our custom "sonarTop" variable is undefined, or the document body
-			// height has changed since the last time we ran sonar.detect()...
+		var elemHeight = elem.offsetHeight || 0; // Height of the element.
+
+		// If our custom "sonarTop" variable is undefined, or the document body
+		// height has changed since the last time we ran sonar.detect()...
 		if (!elem.sonarElemTop || elem.sonarBodyHeight !== bodyHeight) {
 
 			// Loop through the offsetParents to calculate it.
@@ -153,7 +172,7 @@
 				item = queue[index];
 				// If there's a callback for our events...
 				if (item.scrollin || item.scrollout) {
-					detected = detect(item.elem, item.distance, item.visibility);
+					detected = detect(item.elem, item.distance, item.visibility, item.parent);
 					// If detected visibility is different than stored, fire callback.
 					if (detected !== item.detected) {
 						if (detected) {

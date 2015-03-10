@@ -61,8 +61,11 @@ A value from `0` to `1` indicating the percentage of the element to be visible b
 
 The delay to poll the elements on the screen.  This may be desired for performance reasons to reduce the frequency of polling the queue of elements for position information. Default: `0`
 
+### parent
+
+If Sonar detects the element is a child of an element with the CSS `overflow` property set to `scroll` or `auto`, it will use this element as its parent offset for scroll detection instead of the browser window.  Should this not be desired, `parent` may be used to override with another element.
+
 ## Roadmap
 
 * Support for horizontal scroll.
-* `<div>` support (`overflow: scroll`).
 * `<iframe>` support.

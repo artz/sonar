@@ -62,14 +62,15 @@ label {
 #sonar-updates-message {
 	margin:0;
 }
-#scrolling-box {
+#scrolling-box, #overflow {
 	height: 400px;
-	overflow:auto;
+	overflow: auto;
 	border: 3px solid #000;
 }
 </style>
 </head>
 <body>
+<div id="overflow">
 <p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
 <p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
 <div id="box1" class="box">BOX 1</div>
@@ -95,6 +96,7 @@ label {
 <p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
 <p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
 <div id="box3" class="box">BOX 3</div>
+</div>
 <!--<h2>Scrolling Box</h2>
 <div id="scrolling-box">
 <p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
@@ -137,6 +139,7 @@ var sonarUpdates = document.getElementById('sonar-updates-message');
 
 // Add 'scrollin' and 'scrollout' callbacks to Box 1
 Sonar(document.getElementById('box1'), {
+	parent: document.getElementById('overflow'),
 	scrollin: function() {
 		sonarUpdates.innerHTML = 'BOX 1 is on screen.';
 	},
