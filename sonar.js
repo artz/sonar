@@ -196,4 +196,4 @@
 	// Expose!
 	window.Sonar = sonar;
 
-}(this, document));
+}(window, document));
