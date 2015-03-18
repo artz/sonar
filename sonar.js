@@ -118,7 +118,9 @@
 		var screenHeight = parent.clientHeight || 0;
 
 		// How far the user scrolled down.
-		var scrollTop = (parent === documentElement ? body.scrollTop : parent.scrollTop);
+		// Note: This switch is in place for overflow parent support.
+		// Note: Chrome and Safari like body.scrollTop, IE likes documentElement.scrollTop.
+		var scrollTop = (parent === documentElement ? body.scrollTop || documentElement.scrollTop : parent.scrollTop);
 
 		// Height of the element.
 		var elemHeight = elem.offsetHeight || 0;
@@ -154,6 +156,23 @@
 			distance: distance,
 			visibility: visibility
 		});
+
+		var $sonarUpdates = $('#sonar-updates-message');
+		setTimeout(function () {
+			$sonarUpdates.html(JSON.stringify({
+				parent: parent,
+				elem: elem,
+				sonarElemTop: elem.sonarElemTop,
+				elemHeight: elemHeight,
+				scrollTop: scrollTop,
+				screenHeight: screenHeight,
+				distance: distance,
+				visibility: visibility,
+				pageYOffset: window.pageYOffset,
+				docElemScrollTop: document.documentElement.scrollTop,
+				docBodyScrollType: document.body.scrollTop
+			}));
+		}, 100);
 */
 
 		// If elem bottom is above the screen top and
