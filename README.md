@@ -65,6 +65,8 @@ The delay to poll the elements on the screen.  This may be desired for performan
 
 If Sonar detects the element is a child of an element with the CSS `overflow` property set to `scroll` or `auto`, it will use this element as its parent offset for scroll detection instead of the browser window.  Should this not be desired, `parent` may be used to override with another element.
 
+*Important:* For `overflow` scroll detection to work, the scrollable element must have its position property set to `relative` or `absolute`.
+
 ## Roadmap
 
 * Support for horizontal scroll.

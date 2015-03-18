@@ -3,6 +3,8 @@
 
 	'use strict';
 
+	var documentElement = document.documentElement;
+
 	function throttle(func, wait) {
 
 		var timeout;
@@ -53,9 +55,14 @@
 					break;
 				}
 			}
-			parent = parent || document.documentElement;
+			parent = parent || window;
 		}
-		options.parent = parent;
+
+		if (parent === window) {
+			options.parent = documentElement;
+		} else {
+			options.parent = parent;
+		}
 
 		// If scrollin or scrollout is supplied,
 		// push to our poll queue and poll them.
@@ -65,8 +72,8 @@
 			queue.push(options);
 			poll();
 
-			var delay = options.delay || 0;
-			if (!parent.__Sonar) {
+			var delay = options.delay || 13;
+			if (!parent.sonarBound) {
 				// Attach throttled poll function to window scroll event.
 				if (parent.addEventListener) {
 					parent.addEventListener('scroll', throttle(poll, delay), false);
@@ -75,7 +82,7 @@
 					parent.attachEvent('onscroll', throttle(poll, delay));
 					parent.attachEvent('onresize', throttle(poll, delay));
 				}
-				parent.__Sonar = true;
+				parent.sonarBound = true;
 			}
 		}
 
@@ -98,7 +105,7 @@
 		}
 
 		if (distance === undefined) {
-			distance =  0;
+			distance = 0;
 		}
 
 		var parentElem = elem; // Clone the elem for use in our loop.
@@ -107,26 +114,23 @@
 		// Used to recalculate elem.sonarElemTop if body height changes.
 		var bodyHeight = body.offsetHeight;
 
-		// NCZ: I don't think you need innerHeight, I believe all major
-		// browsers support clientHeight.
-		var screenHeight = parent.clientHeight || 0; // Height of the screen.
+		// Height of the screen.
+		var screenHeight = parent.clientHeight || 0;
 
-		// NCZ: I don't think you need pageYOffset, I believe all major
-		// browsers support scrollTop.
-		var scrollTop = parent.scrollTop || 0; // How far the user scrolled down.
+		// How far the user scrolled down.
+		var scrollTop = (parent === documentElement ? body.scrollTop : parent.scrollTop);
 
-		var elemHeight = elem.offsetHeight || 0; // Height of the element.
+		// Height of the element.
+		var elemHeight = elem.offsetHeight || 0;
 
-		// If our custom "sonarTop" variable is undefined, or the document body
+		// If our custom "sonarElemTop" variable is undefined, or the document body
 		// height has changed since the last time we ran sonar.detect()...
 		if (!elem.sonarElemTop || elem.sonarBodyHeight !== bodyHeight) {
 
 			// Loop through the offsetParents to calculate it.
-			if (parentElem.offsetParent) {
-				do {
-					elemTop += parentElem.offsetTop;
-				}
-				while (parentElem = parentElem.offsetParent);
+			while (parentElem !== parent && parentElem.offsetParent) {
+				elemTop += parentElem.offsetTop;
+				parentElem = parentElem.offsetParent;
 			}
 
 			// Set the custom property (sonarTop) to avoid future attempts to calculate
@@ -141,6 +145,7 @@
 /*
 		// Dump all calculated variables.
 		console.dir({
+			parent: parent,
 			elem: elem,
 			sonarElemTop: elem.sonarElemTop,
 			elemHeight: elemHeight,
@@ -155,8 +160,8 @@
 		// the elem top is below the screen bottom, it's false.
 		// If visibility is specified, it is subtracted or added
 		// as needed from the element's height.
-		return (!(elem.sonarElemTop + (visibility ? 0 : elemHeight * visibility) < scrollTop - distance) &&
-				!(elem.sonarElemTop + (visibility ? elemHeight * visibility : 0) > scrollTop + screenHeight + distance));
+		return elem.sonarElemTop + elemHeight - visibility * elemHeight > scrollTop - distance &&
+			elem.sonarElemTop + visibility * elemHeight < scrollTop + screenHeight + distance;
 	}
 
 	// Consider attaching an event listener for each
