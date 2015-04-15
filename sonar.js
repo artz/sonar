@@ -119,8 +119,13 @@
 
 		// How far the user scrolled down.
 		// Note: This switch is in place for overflow parent support.
-		// Note: Chrome and Safari like body.scrollTop, IE likes documentElement.scrollTop.
-		var scrollTop = (parent === documentElement ? body.scrollTop || documentElement.scrollTop : parent.scrollTop);
+		var scrollTop;
+		if (parent === documentElement) {
+			// Note: Chrome and Safari like body.scrollTop, IE likes documentElement.scrollTop.
+			scrollTop = body.scrollTop || documentElement.scrollTop;
+		} else {
+			scrollTop = parent.scrollTop;
+		}
 
 		// Height of the element.
 		var elemHeight = elem.offsetHeight || 0;
@@ -175,12 +180,20 @@
 		}, 100);
 */
 
+		// Determine visibility of parent element for overflow functionality.
+		var parentVisibility = true;
+		if (parent !== documentElement) {
+			parentVisibility = detect(parent, 0, 0, documentElement);
+		}
+
 		// If elem bottom is above the screen top and
 		// the elem top is below the screen bottom, it's false.
 		// If visibility is specified, it is subtracted or added
 		// as needed from the element's height.
-		return elem.sonarElemTop + elemHeight - visibility * elemHeight > scrollTop - distance &&
+		var elemVisibility = elem.sonarElemTop + elemHeight - visibility * elemHeight > scrollTop - distance &&
 			elem.sonarElemTop + visibility * elemHeight < scrollTop + screenHeight + distance;
+
+		return parentVisibility && elemVisibility;
 	}
 
 	// Consider attaching an event listener for each

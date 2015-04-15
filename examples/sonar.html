@@ -63,7 +63,7 @@ label {
 #sonar-updates-message {
 	margin:0;
 }
-#scrolling-box {
+.scrolling-box {
 	height: 300px;
 	overflow: auto;
 	border: 3px solid #000;
@@ -81,14 +81,14 @@ label {
 <div id="box1" class="box">BOX 1</div>
 <p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
 <p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
-<div id="scrolling-box">
+<div class="scrolling-box">
 <p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
 <p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
 <p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
 <p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
 <p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
 <p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
-<div id="box1b" class="box">BOX 1</div>
+<div id="box4" class="box">BOX 4</div>
 <p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
 <p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
 <p>Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong. Look at me type bing bang bong. We type type type bing bing bang bong. Type type type bang bong bong bong.</p>
@@ -138,6 +138,17 @@ Sonar(document.getElementById('box1'), {
 	},
 	scrollout: function () {
 		sonarUpdates.innerHTML = 'BOX 1 is off screen.';
+	}
+});
+
+// Add 'scrollin' and 'scrollout' callbacks to Box 1
+Sonar(document.getElementById('box4'), {
+	// parent: document.getElementById('overflow'),
+	scrollin: function() {
+		sonarUpdates.innerHTML = 'BOX 4 is on screen.';
+	},
+	scrollout: function () {
+		sonarUpdates.innerHTML = 'BOX 4 is off screen.';
 	}
 });
 
